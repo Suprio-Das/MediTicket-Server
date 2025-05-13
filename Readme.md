@@ -6,3 +6,6 @@ MediTicket is a medical ticket managing website from where tickets for specific 
 1. Node JS
 2. Express JS
 3. MongoDB
+
+### Possible Tools:
+1. Dotenv
