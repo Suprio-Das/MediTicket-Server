@@ -9,3 +9,6 @@ MediTicket is a medical ticket managing website from where tickets for specific 
 
 ### Possible Tools:
 1. Dotenv
+
+### Possible Deployment Tool
+- Render
