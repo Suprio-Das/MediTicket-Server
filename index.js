@@ -10,4 +10,6 @@ app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('Hola, The MediTicket Server is on track!');
-})
+});
+
+app.listen(PORT);
