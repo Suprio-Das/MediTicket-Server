@@ -31,6 +31,7 @@ async function run() {
         const database = client.db('MediTicket');
         const RegNo = database.collection('RegNo');
         const RegNoList = await RegNo.find().toArray();
+        const CurrentRegNo = RegNoList[RegNoList.length - 1];
     } finally {
         // await client.close();
     }
