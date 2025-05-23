@@ -29,6 +29,8 @@ async function run() {
     try {
         await client.connect();
         const database = client.db('MediTicket');
+        const RegNo = database.collection('RegNo');
+        const RegNoList = await RegNo.find().toArray();
     } finally {
         // await client.close();
     }
