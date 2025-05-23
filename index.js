@@ -30,8 +30,16 @@ async function run() {
         await client.connect();
         const database = client.db('MediTicket');
         const RegNo = database.collection('RegNo');
+        const Rooms = database.collection('Rooms');
         const RegNoList = await RegNo.find().toArray();
         const CurrentRegNo = RegNoList[RegNoList.length - 1];
+
+        // Getting Current Date
+        const d = new Date();
+        const year = d.getFullYear();
+        const month = d.getMonth() + 1;
+        const day = d.getDate();
+        const fullDate = `${year}-0${month}-${day}`;
     } finally {
         // await client.close();
     }
