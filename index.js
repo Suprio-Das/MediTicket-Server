@@ -7,3 +7,7 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(cors());
+
+app.get('/', (req, res) => {
+    res.send('Hola, The MediTicket Server is on track!');
+})
