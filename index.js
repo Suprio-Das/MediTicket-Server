@@ -1,8 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+const cron = require('node-cron');
 const PORT = process.env.PORT || 5000;
 require('dotenv').config();
 const app = express();
+let checked = 0;
 
 // Middlewares
 app.use(express.json());
@@ -40,6 +42,27 @@ async function run() {
         const month = d.getMonth() + 1;
         const day = d.getDate();
         const fullDate = `${year}-0${month}-${day}`;
+
+        const updateRoomCapcity = async () => {
+            const update = {
+                $set: {
+                    Medicine: 50,
+                    Skin: 50,
+                    Eye: 50,
+                    Dental: 50,
+                    Dialysis: 50,
+                    NeuroMedicine: 50
+                }
+            }
+            const result = await Rooms.updateMany({}, update);
+            console.log(result);
+        }
+
+        // Schedule Room Capcity Reset
+        cron.schedule('1 0 * * *', () => {
+            updateRoomCapacity();
+        });
+
     } finally {
         // await client.close();
     }
