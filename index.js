@@ -58,9 +58,9 @@ async function run() {
             console.log(result);
         }
 
-        // Schedule Room Capcity Reset
+        // Schedule Room Capcity Reset at 12:01 midnight
         cron.schedule('1 0 * * *', () => {
-            updateRoomCapacity();
+            updateRoomCapcity();
         });
 
     } finally {
