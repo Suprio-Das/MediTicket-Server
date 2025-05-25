@@ -63,6 +63,12 @@ async function run() {
             updateRoomCapcity();
         });
 
+        // New Ticket API
+        app.post('/tickets', async (req, res) => {
+            const newTicket = req.body;
+            console.log(newTicket);
+        })
+
     } finally {
         // await client.close();
     }
