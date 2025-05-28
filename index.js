@@ -63,10 +63,22 @@ async function run() {
             updateRoomCapcity();
         });
 
+        // Room API
+        app.get('/rooms', async (req, res) => {
+            const result = await Rooms.find().toArray();
+            res.send(result);
+        })
+
         // New Ticket API
         app.post('/tickets', async (req, res) => {
             const newTicket = req.body;
-            console.log(newTicket);
+            const room = newTicket.room;
+            const roomName = room[room.length - 1];
+            const query = { Medicine: '50' };
+            if (roomName === 'M') {
+                const currentMedicineRoom = await Rooms.findOne(query);
+                console.log(currentMedicineRoom);
+            }
         })
 
     } finally {
