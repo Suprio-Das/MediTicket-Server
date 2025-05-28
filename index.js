@@ -51,7 +51,8 @@ async function run() {
                     Eye: 50,
                     Dental: 50,
                     Dialysis: 50,
-                    NeuroMedicine: 50
+                    NeuroMedicine: 50,
+                    Date: fullDate
                 }
             }
             const result = await Rooms.updateMany({}, update);
