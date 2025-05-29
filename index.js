@@ -82,14 +82,19 @@ async function run() {
         // New Ticket API
         app.post('/tickets', async (req, res) => {
             const RegNoList = await RegNo.find().toArray();
-            const LastRegNo = RegNoList[RegNoList.length - 1];
-            const CurrentRegNoString = LastRegNo.regNo;
+            const lastRegNo = RegNoList[RegNoList.length - 1];
+            const CurrentRegNoString = lastRegNo.regNo;
             const CurrentRegNo = parseInt(CurrentRegNoString);
             const UpdatedRegNo = CurrentRegNo + 1;
-            // Add new reg no
-            const newRegNo = await RegNo.insertOne(UpdatedRegNo);
             const newTicket = req.body;
             newTicket.regNo = UpdatedRegNo;
+            const finalRegNo = {
+                regNo: UpdatedRegNo
+            }
+            // Add new reg no
+            const newRegNo = await RegNo.insertOne(finalRegNo);
+            const result = await Tickets.insertOne(newTicket);
+            res.send(result);
         })
 
     } finally {
