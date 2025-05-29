@@ -85,9 +85,10 @@ async function run() {
             const CurrentRegNoString = LastRegNo.regNo;
             const CurrentRegNo = parseInt(CurrentRegNoString);
             const UpdatedRegNo = CurrentRegNo + 1;
+            // Add new reg no
+            const newRegNo = await RegNo.insertOne(UpdatedRegNo);
             const newTicket = req.body;
             newTicket.regNo = UpdatedRegNo;
-            // console.log(newTicket)
         })
 
     } finally {
