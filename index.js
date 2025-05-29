@@ -70,6 +70,12 @@ async function run() {
             res.send(result);
         })
 
+        // Update Room Capacity
+        app.put('/rooms', async (req, res) => {
+            const data = req.body;
+            console.log(data);
+        })
+
         // New Ticket API
         app.post('/tickets', async (req, res) => {
             const newTicket = req.body;
