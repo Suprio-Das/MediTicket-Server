@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 });
 
 // MongoDB Integrations
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.63zdo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 
@@ -71,6 +71,11 @@ async function run() {
         // Update Room Capacity
         app.put('/rooms', async (req, res) => {
             const data = req.body;
+            const rooms = await Rooms.find().toArray();
+            const room = rooms[0];
+            const query = { _id: new ObjectId(room._id) };
+            const result = await Rooms.updateOne(query, { $set: data });
+            res.send(result);
         })
 
         // New Ticket API
@@ -82,7 +87,7 @@ async function run() {
             const UpdatedRegNo = CurrentRegNo + 1;
             const newTicket = req.body;
             newTicket.regNo = UpdatedRegNo;
-            console.log(newTicket)
+            // console.log(newTicket)
         })
 
     } finally {
