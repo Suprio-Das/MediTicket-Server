@@ -33,8 +33,6 @@ async function run() {
         const database = client.db('MediTicket');
         const RegNo = database.collection('RegNo');
         const Rooms = database.collection('Rooms');
-        const RegNoList = await RegNo.find().toArray();
-        const CurrentRegNo = RegNoList[RegNoList.length - 1];
 
         // Getting Current Date
         const d = new Date();
@@ -73,19 +71,18 @@ async function run() {
         // Update Room Capacity
         app.put('/rooms', async (req, res) => {
             const data = req.body;
-            console.log(data);
         })
 
         // New Ticket API
         app.post('/tickets', async (req, res) => {
+            const RegNoList = await RegNo.find().toArray();
+            const LastRegNo = RegNoList[RegNoList.length - 1];
+            const CurrentRegNoString = LastRegNo.regNo;
+            const CurrentRegNo = parseInt(CurrentRegNoString);
+            const UpdatedRegNo = CurrentRegNo + 1;
             const newTicket = req.body;
-            const room = newTicket.room;
-            const roomName = room[room.length - 1];
-            const query = { Medicine: '50' };
-            if (roomName === 'M') {
-                const currentMedicineRoom = await Rooms.findOne(query);
-                console.log(currentMedicineRoom);
-            }
+            newTicket.regNo = UpdatedRegNo;
+            console.log(newTicket)
         })
 
     } finally {
