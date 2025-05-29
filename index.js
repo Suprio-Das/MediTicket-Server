@@ -33,6 +33,7 @@ async function run() {
         const database = client.db('MediTicket');
         const RegNo = database.collection('RegNo');
         const Rooms = database.collection('Rooms');
+        const Tickets = database.collection('Tickets');
 
         // Getting Current Date
         const d = new Date();
