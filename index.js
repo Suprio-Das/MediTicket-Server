@@ -63,6 +63,12 @@ async function run() {
             updateRoomCapcity();
         });
 
+        app.get('/test-reset', async (req, res) => {
+            await updateRoomCapcity();
+            res.send('Manual reset complete');
+        });
+
+
         // Room API
         app.get('/rooms', async (req, res) => {
             const result = await Rooms.find().toArray();
@@ -94,7 +100,12 @@ async function run() {
             // Add new reg no
             const newRegNo = await RegNo.insertOne(finalRegNo);
             const result = await Tickets.insertOne(newTicket);
-            res.send(result);
+            if (result.insertedId) {
+                // Fetching the generated ticket
+                const newTicketQuery = { _id: new ObjectId(result.insertedId) }
+                const generatedTicket = await Tickets.findOne(newTicketQuery);
+                res.send(generatedTicket);
+            }
         })
 
     } finally {
