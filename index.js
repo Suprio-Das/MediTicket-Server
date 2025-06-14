@@ -106,6 +106,14 @@ async function run() {
                 const generatedTicket = await Tickets.findOne(newTicketQuery);
                 res.send(generatedTicket);
             }
+
+            // Verfication Route
+            app.get('/verfication', async (req, res) => {
+                const regNo = req.query.regno;
+                const query = { "regNo": regNo };
+                const result = await RegNo.findOne(query);
+                res.send(result);
+            })
         })
 
     } finally {
